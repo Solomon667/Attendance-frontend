@@ -33,7 +33,7 @@ const LoginPage = () => {
     e.preventDefault();
     setIsLoading(true); // Set loading to true when the login request starts
     try {
-      const response = await axios.post(`${API_BASE_URL} /api/auth/login`, {
+      const response = await axios.post(`${API_BASE_URL}/api/auth/login`, {
         email,
         password,
       });
