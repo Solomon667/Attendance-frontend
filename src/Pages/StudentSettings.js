@@ -13,7 +13,7 @@ const StudentSettingsPage = () => {
       try {
         const token = localStorage.getItem("studentToken");
         if (!token) throw new Error("No token available");
-        const response = await axios.get(`${API_BASE_URL} /api/auth/profile`, {
+        const response = await axios.get(`${API_BASE_URL}/api/auth/profile`, {
           headers: {
             Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
@@ -42,7 +42,7 @@ const StudentSettingsPage = () => {
       if (!token) throw new Error("No token available");
 
       const response = await axios.put(
-        `${API_BASE_URL} /api/auth/profile`,
+        `${API_BASE_URL}/api/auth/profile`,
         user,
         {
           headers: {
