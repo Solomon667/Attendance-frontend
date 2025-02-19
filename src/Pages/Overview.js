@@ -25,7 +25,7 @@ const Overview = () => {
   const [totalAttendance, setTotalAttendance] = useState(0);
   const [totalAbsent, setTotalAbsent] = useState(0);
   const [totalCourses, setTotalCourses] = useState(0);
-
+const API_BASE_URL = process.env.REACT_APP_API_URL;
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -33,7 +33,7 @@ const Overview = () => {
         if (!token) throw new Error("No token available");
 
         const courseResponse = await axios.get(
-          "http://localhost:5000/api/attendance/total-courses",
+          `${API_BASE_URL}/api/attendance/total-courses`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -44,7 +44,7 @@ const Overview = () => {
         setTotalCourses(courseResponse.data.totalCourses);
 
         const attendanceResponse = await axios.get(
-          "http://localhost:5000/api/attendance/attendance-summary",
+          `${API_BASE_URL}/api/attendance/attendance-summary`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -76,15 +76,15 @@ const Overview = () => {
   };
 
   return (
-    <div className="py-8 px-4 md:px-8">
-      <div className="max-w-7xl mx-auto">
-        <h1 className="text-3xl font-semibold text-gray-800 mb-6">
+    <div className="px-4 py-8 md:px-8">
+      <div className="mx-auto max-w-7xl">
+        <h1 className="mb-6 text-3xl font-semibold text-gray-800">
           Dashboard Overview
         </h1>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
+        <div className="grid grid-cols-1 gap-8 mt-8 md:grid-cols-2 lg:grid-cols-3">
           {/* Total Attendance */}
-          <div className="bg-white p-6 rounded-lg shadow-md">
-            <h2 className="text-xl font-semibold text-gray-800 mb-4">
+          <div className="p-6 bg-white rounded-lg shadow-md">
+            <h2 className="mb-4 text-xl font-semibold text-gray-800">
               Total Attendance
             </h2>
             <p className="text-2xl font-bold text-purple-600">
@@ -93,16 +93,16 @@ const Overview = () => {
           </div>
 
           {/* Total Courses */}
-          <div className="bg-white p-6 rounded-lg shadow-md">
-            <h2 className="text-xl font-semibold text-gray-800 mb-4">
+          <div className="p-6 bg-white rounded-lg shadow-md">
+            <h2 className="mb-4 text-xl font-semibold text-gray-800">
               Total Courses
             </h2>
             <p className="text-2xl font-bold text-purple-600">{totalCourses}</p>
           </div>
 
           {/* Total Absentees */}
-          <div className="bg-white p-6 rounded-lg shadow-md">
-            <h2 className="text-xl font-semibold text-gray-800 mb-4">
+          <div className="p-6 bg-white rounded-lg shadow-md">
+            <h2 className="mb-4 text-xl font-semibold text-gray-800">
               Total Absent
             </h2>
             <p className="text-2xl font-bold text-red-600">{totalAbsent}</p>
@@ -110,8 +110,8 @@ const Overview = () => {
         </div>
 
         {/* Chart Section */}
-        <div className="bg-white p-6 rounded-lg shadow-md mt-5">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-4">
+        <div className="p-6 mt-5 bg-white rounded-lg shadow-md">
+          <h2 className="mb-4 text-2xl font-semibold text-gray-800">
             Attendance Trends
           </h2>
           <Bar

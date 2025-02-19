@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 const ReportsPage = () => {
   const [reports, setReports] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+    const API_BASE_URL = process.env.REACT_APP_API_URL;
 
   // Fetch reports for the teacher's courses
   const fetchReports = () => {
@@ -12,7 +13,7 @@ const ReportsPage = () => {
     const token = localStorage.getItem("token");
     if (!token) throw new Error("No token available");
     axios
-      .get("http://localhost:5000/api/courses/courses-by-teacher", {
+      .get(`${API_BASE_URL}/api/courses/courses-by-teacher`, {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
@@ -34,12 +35,12 @@ const ReportsPage = () => {
 
   return (
     <div className="p-8">
-      <h1 className="text-3xl font-bold text-gray-800 mb-6">
+      <h1 className="mb-6 text-3xl font-bold text-gray-800">
         Attendance Reports
       </h1>
 
       {/* Search / Filters */}
-      <div className="flex justify-between items-center mb-4">
+      <div className="flex items-center justify-between mb-4">
         <input
           type="text"
           placeholder="Search by course"
@@ -47,7 +48,7 @@ const ReportsPage = () => {
         />
         <Link
           to="/dashboard"
-          className="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700"
+          className="px-4 py-2 text-white bg-purple-600 rounded-lg hover:bg-purple-700"
         >
           Go Back
         </Link>
@@ -59,10 +60,10 @@ const ReportsPage = () => {
       ) : (
         <div>
           {/* Reports Table */}
-          <div className="overflow-x-auto bg-white shadow-lg rounded-lg mb-6">
+          <div className="mb-6 overflow-x-auto bg-white rounded-lg shadow-lg">
             <table className="min-w-full table-auto">
               <thead>
-                <tr className="bg-gray-100 text-gray-700">
+                <tr className="text-gray-700 bg-gray-100">
                   <th className="px-6 py-3 text-left">Course Name</th>
                   <th className="px-6 py-3 text-left">Course Code</th>
                   <th className="px-6 py-3 text-left">Total Students</th>

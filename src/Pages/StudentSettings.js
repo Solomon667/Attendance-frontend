@@ -6,21 +6,19 @@ const StudentSettingsPage = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
+  const API_BASE_URL = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {
         const token = localStorage.getItem("studentToken");
         if (!token) throw new Error("No token available");
-        const response = await axios.get(
-          "http://localhost:5000/api/auth/profile",
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-              "Content-Type": "application/json",
-            },
-          }
-        );
+        const response = await axios.get(`${API_BASE_URL} /api/auth/profile`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        });
         setUser(response.data);
       } catch (err) {
         setError("Failed to load user profile.");
@@ -44,7 +42,7 @@ const StudentSettingsPage = () => {
       if (!token) throw new Error("No token available");
 
       const response = await axios.put(
-        "http://localhost:5000/api/auth/profile",
+        `${API_BASE_URL} /api/auth/profile`,
         user,
         {
           headers: {

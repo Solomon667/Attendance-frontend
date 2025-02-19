@@ -32,6 +32,7 @@ const MyAttendance = () => {
   const [successMessage, setSuccessMessage] = useState(""); // Success message state
 
   // Fetch all courses for the student
+  const API_BASE_URL = process.env.REACT_APP_API_URL;
   useEffect(() => {
     const fetchCourses = async () => {
       const token = localStorage.getItem("studentToken");
@@ -43,7 +44,7 @@ const MyAttendance = () => {
       setIsLoadingCourses(true);
       try {
         const response = await axios.get(
-          "http://localhost:5000/api/courses/student",
+          `${API_BASE_URL}/api/courses/student`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -81,7 +82,7 @@ const MyAttendance = () => {
 
     try {
       const response = await axios.get(
-        `http://localhost:5000/api/attendance/student/${courseId}`,
+        `${API_BASE_URL}/api/attendance/student/${courseId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -178,7 +179,7 @@ const MyAttendance = () => {
   };
 
   const markAttendance = async (sessionIdentifier) => {
-    console.log(sessionIdentifier)
+    console.log(sessionIdentifier);
     const token = localStorage.getItem("studentToken");
     if (!token) {
       setError("No student token available.");
@@ -187,7 +188,7 @@ const MyAttendance = () => {
 
     try {
       const response = await axios.put(
-        `http://localhost:5000/api/attendance/mark/${sessionIdentifier}`,
+        `${API_BASE_URL}/api/attendance/mark/${sessionIdentifier}`,
         {},
         {
           headers: {

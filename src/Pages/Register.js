@@ -33,13 +33,12 @@ const RegisterPage = () => {
 
   const navigate = useNavigate(); // Initialize navigate
 
+  const API_BASE_URL = process.env.REACT_APP_API_URL;
   // Fetch departments on component mount
   useEffect(() => {
     const fetchDepartments = async () => {
       try {
-        const response = await axios.get(
-          "http://localhost:5000/api/departments"
-        );
+        const response = await axios.get(`${API_BASE_URL}/api/departments`);
         setDepartments(response.data);
       } catch (error) {
         console.error("Error fetching departments:", error);
@@ -54,17 +53,14 @@ const RegisterPage = () => {
     setIsLoading(true); // Set loading state to true
     setError(""); // Reset error before trying to register
     try {
-      const response = await axios.post(
-        "http://localhost:5000/api/auth/register",
-        {
-          firstName,
-          lastName,
-          email,
-          password,
-          role: "student", // Assuming this is a student registration
-          departmentId,
-        }
-      );
+      const response = await axios.post(`${API_BASE_URL}/api/auth/register`, {
+        firstName,
+        lastName,
+        email,
+        password,
+        role: "student", // Assuming this is a student registration
+        departmentId,
+      });
       // On successful registration, redirect to login page
       navigate("/login"); // Use navigate instead of history.push
     } catch (error) {

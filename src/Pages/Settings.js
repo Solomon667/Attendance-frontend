@@ -7,20 +7,18 @@ const SettingsPage = () => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
 
+    const API_BASE_URL = process.env.REACT_APP_API_URL;
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {
         const token = localStorage.getItem("token");
         if (!token) throw new Error("No token available");
-        const response = await axios.get(
-          "http://localhost:5000/api/auth/profile",
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-              "Content-Type": "application/json",
-            },
-          }
-        );
+        const response = await axios.get(`${API_BASE_URL}/api/auth/profile`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        });
         setUser(response.data);
       } catch (err) {
         setError("Failed to load user profile.");
@@ -44,7 +42,7 @@ const SettingsPage = () => {
       if (!token) throw new Error("No token available");
 
       const response = await axios.put(
-        "http://localhost:5000/api/auth/profile",
+        `${API_BASE_URL}/api/auth/profile`,
         user,
         {
           headers: {
@@ -65,15 +63,15 @@ const SettingsPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 py-8 px-4 md:px-8">
-      <div className="max-w-4xl mx-auto bg-white p-8 rounded-lg shadow-lg">
-        <h1 className="text-3xl font-bold text-gray-800 mb-6">Settings</h1>
+    <div className="min-h-screen px-4 py-8 bg-gray-100 md:px-8">
+      <div className="max-w-4xl p-8 mx-auto bg-white rounded-lg shadow-lg">
+        <h1 className="mb-6 text-3xl font-bold text-gray-800">Settings</h1>
 
         {error && (
-          <div className="bg-red-500 text-white p-3 mb-6 rounded">{error}</div>
+          <div className="p-3 mb-6 text-white bg-red-500 rounded">{error}</div>
         )}
         {success && (
-          <div className="bg-green-500 text-white p-3 mb-6 rounded">
+          <div className="p-3 mb-6 text-white bg-green-500 rounded">
             Profile updated successfully!
           </div>
         )}
@@ -167,7 +165,7 @@ const SettingsPage = () => {
 
           <button
             type="submit"
-            className="w-full bg-purple-600 text-white py-3 rounded-lg hover:bg-purple-700 transition"
+            className="w-full py-3 text-white transition bg-purple-600 rounded-lg hover:bg-purple-700"
             disabled={loading}
           >
             {loading ? "Saving..." : "Save Changes"}

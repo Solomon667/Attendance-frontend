@@ -10,7 +10,8 @@ import { useNavigate } from "react-router-dom";
 const Icon = ({ name }) => <i className={`fas fa-${name} text-xl`}></i>;
 
 const Dashboard = () => {
-   const navigate = useNavigate(); // Hook to handle redirection
+  const navigate = useNavigate(); // Hook to handle redirection
+    const API_BASE_URL = process.env.REACT_APP_API_URL;
 
     const handleLogout = () => {
       // Remove the token from localStorage
@@ -32,7 +33,7 @@ const Dashboard = () => {
   const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
 
   return (
-    <div className="min-h-screen flex bg-gray-100">
+    <div className="flex min-h-screen bg-gray-100">
       {/* Sidebar */}
       <aside
         className={`bg-gradient-to-br from-purple-600 to-pink-600 text-white fixed top-0 left-0 h-full transition-transform transform ${
@@ -43,7 +44,7 @@ const Dashboard = () => {
           <h1 className="text-2xl font-bold">Dashboard</h1>
           <button
             onClick={toggleSidebar}
-            className="text-white text-2xl md:hidden"
+            className="text-2xl text-white md:hidden"
           >
             <i className="fas fa-times"></i>
           </button>
@@ -53,7 +54,7 @@ const Dashboard = () => {
             <li>
               <Link
                 to="/dashboard/overview"
-                className="flex items-center px-6 py-3 hover:bg-white hover:bg-opacity-10 transition duration-300"
+                className="flex items-center px-6 py-3 transition duration-300 hover:bg-white hover:bg-opacity-10"
               >
                 <Icon name="home" />
                 <span className="ml-4">Overview</span>
@@ -62,7 +63,7 @@ const Dashboard = () => {
             <li>
               <Link
                 to="/dashboard/attendance"
-                className="flex items-center px-6 py-3 hover:bg-white hover:bg-opacity-10 transition duration-300"
+                className="flex items-center px-6 py-3 transition duration-300 hover:bg-white hover:bg-opacity-10"
               >
                 <Icon name="calendar-check" />
                 <span className="ml-4">Attendance Records</span>
@@ -71,7 +72,7 @@ const Dashboard = () => {
             <li>
               <Link
                 to="/dashboard/qrcode"
-                className="flex items-center px-6 py-3 hover:bg-white hover:bg-opacity-10 transition duration-300"
+                className="flex items-center px-6 py-3 transition duration-300 hover:bg-white hover:bg-opacity-10"
               >
                 <Icon name="qrcode" />
                 <span className="ml-4">Generate QR Code</span>
@@ -80,7 +81,7 @@ const Dashboard = () => {
             <li>
               <Link
                 to="/dashboard/reports"
-                className="flex items-center px-6 py-3 hover:bg-white hover:bg-opacity-10 transition duration-300"
+                className="flex items-center px-6 py-3 transition duration-300 hover:bg-white hover:bg-opacity-10"
               >
                 <Icon name="chart-line" />
                 <span className="ml-4">Reports</span>
@@ -89,7 +90,7 @@ const Dashboard = () => {
             <li>
               <Link
                 to="/dashboard/courses"
-                className="flex items-center px-6 py-3 hover:bg-white hover:bg-opacity-10 transition duration-300"
+                className="flex items-center px-6 py-3 transition duration-300 hover:bg-white hover:bg-opacity-10"
               >
                 <Icon name="book" />
                 <span className="ml-4">Courses & Classes</span>
@@ -98,7 +99,7 @@ const Dashboard = () => {
             <li>
               <Link
                 to="/dashboard/settings"
-                className="flex items-center px-6 py-3 hover:bg-white hover:bg-opacity-10 transition duration-300"
+                className="flex items-center px-6 py-3 transition duration-300 hover:bg-white hover:bg-opacity-10"
               >
                 <Icon name="cog" />
                 <span className="ml-4">Settings</span>
@@ -144,7 +145,7 @@ const Dashboard = () => {
               <img
                 src={user.avatar}
                 alt="Profile"
-                className="w-10 h-10 rounded-full object-cover"
+                className="object-cover w-10 h-10 rounded-full"
               />
             ) : (
               <FontAwesomeIcon

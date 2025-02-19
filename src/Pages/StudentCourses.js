@@ -25,6 +25,7 @@ const StudentCourses = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   // Fetch all courses for the student
+    const API_BASE_URL = process.env.REACT_APP_API_URL;
   useEffect(() => {
     const fetchCourses = async () => {
       const token = localStorage.getItem("studentToken");
@@ -35,14 +36,11 @@ const StudentCourses = () => {
 
       setIsLoading(true);
       try {
-        const response = await axios.get(
-          "http://localhost:5000/api/courses/student",
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+        const response = await axios.get(`${API_BASE_URL}/api/courses/student`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
 
         setCourses(response.data.courses);
       } catch (err) {

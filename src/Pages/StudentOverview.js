@@ -25,7 +25,8 @@ const StudentOverview = () => {
   const [totalClasses, setTotalClasses] = useState(0);
   const [totalPresent, setTotalPresent] = useState(0);
   const [totalAbsent, setTotalAbsent] = useState(0);
-//   const [totalLate, setTotalLate] = useState(0);
+  //   const [totalLate, setTotalLate] = useState(0);
+     const API_BASE_URL = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -34,14 +35,14 @@ const StudentOverview = () => {
         if (!token) throw new Error("No token available");
 
         const attendanceResponse = await axios.get(
-          "http://localhost:5000/api/attendance/attendance-summary/student",
+          `${API_BASE_URL}/api/attendance/attendance-summary/student`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
               "Content-Type": "application/json",
             },
           }
-          );
+        );
           console.log(attendanceResponse.data);
 
         setTotalClasses(attendanceResponse.data.totalClasses);

@@ -28,18 +28,15 @@ const LoginPage = () => {
   const [isLoading, setIsLoading] = useState(false); // Loading state
 
   const navigate = useNavigate(); // Initialize navigate
-
+  const API_BASE_URL = process.env.REACT_APP_API_URL;
   const handleLogin = async (e) => {
     e.preventDefault();
     setIsLoading(true); // Set loading to true when the login request starts
     try {
-      const response = await axios.post(
-        "http://localhost:5000/api/auth/login",
-        {
-          email,
-          password,
-        }
-      );
+      const response = await axios.post(`${API_BASE_URL} /api/auth/login`, {
+        email,
+        password,
+      });
       console.log(response.data);
       setUser(response.data); // Store response data in state
 
